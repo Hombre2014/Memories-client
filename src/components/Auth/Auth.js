@@ -8,8 +8,7 @@ import useStyles from './style';
 const Auth = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
-
-  const isSignup = false;
+  const [isSignup, setIsSignup] = useState(false);
 
   const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
@@ -19,6 +18,11 @@ const Auth = () => {
 
   const handleChange = () => {
 
+  }
+
+  const switchMode = () => {
+    setIsSignup((prevIsSignup) => !prevIsSignup);
+    setShowPassword(false);
   }
 
   return (
@@ -43,6 +47,13 @@ const Auth = () => {
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
             {isSignup ? 'Sign Up' : 'Sign In'}
           </Button>
+          <Grid container justifyContent="center">
+            <Grid item>
+              <Button onClick={switchMode}>
+                {isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up"}
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       </Paper>
     </Container>
