@@ -20,9 +20,17 @@ export default makeStyles((theme) => ({
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+  },
+  signup: {
+    cursor: 'pointer',
+    marginTop: theme.spacing(2),
+    backgroundColor: '#00e7ff',
   },
   googleButton: {
     marginBottom: theme.spacing(2),
