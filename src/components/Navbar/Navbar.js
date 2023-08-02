@@ -6,19 +6,20 @@ import decode from 'jwt-decode';
 import useStyles from './styles';
 import memories from '../../images/memories.png';
 
+let userResult;
+
 const Navbar = () => {
   const classes = useStyles();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-  let userResult = null;
 
-  // console.log('User.Result: ' + user?.result._id);
-  // console.log('Token length: ' + user?.token.length);
-
-  // const userName = decode(user.token).name;
-  // const userPhoto = decode(user.token).picture;
+  if (typeof user?.result === 'string') {
+    userResult = decode(user.token);
+  } else {
+    userResult = user?.result;
+  }
 
   const logout = () => {
     dispatch({ type: 'LOGOUT' });
@@ -39,8 +40,6 @@ const Navbar = () => {
     setUser(JSON.parse(localStorage.getItem('profile')));
   }, [location]);
 
-  // console.log(user.result);
-
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className='classes.brandContainer'>
@@ -50,8 +49,8 @@ const Navbar = () => {
       <Toolbar className={classes.toolbar} />
       {user ? (
         <div className={classes.profile}>
-          <Avatar className={classes.purple} alt={decode(user.token).name} src={decode(user.token).picture}>{decode(user.token).name.charAt(0)}</Avatar>
-          <Typography className={classes.userName} variant="h6">{decode(user.token).name}</Typography>
+          <Avatar className={classes.purple} alt={userResult.name} src={userResult.picture}>{userResult.name.charAt(0)}</Avatar>
+          <Typography className={classes.userName} variant="h6">{userResult.name}</Typography>
           <Button variant="contained" className={classes.logout} color="secondary" onClick={logout}>Logout</Button>
         </div>
       ) : (
