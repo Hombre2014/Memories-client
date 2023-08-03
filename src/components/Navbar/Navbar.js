@@ -6,7 +6,7 @@ import decode from 'jwt-decode';
 import useStyles from './styles';
 import memories from '../../images/memories.png';
 
-let userResult;
+let userResult = null;
 
 const Navbar = () => {
   const classes = useStyles();
