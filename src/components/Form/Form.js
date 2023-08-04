@@ -4,15 +4,17 @@ import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
 import decode from 'jwt-decode';
+import { useHistory } from 'react-router-dom';
 
 import useStyles from './styles';
 
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({ name: '', title: '', message: '', tags: '', selectedFile: '' });
-  const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
+  const post = useSelector((state) => currentId ? state.posts.posts.find((p) => p._id === currentId) : null);
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem('profile'));
+  const history = useHistory();
 
   useEffect(() => {
     if (post) setPostData(post);
@@ -27,7 +29,7 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
 
     if (currentId === null) {
-      dispatch(createPost({ ...postData, name: user?.result?.name || decode(user.token).name }));
+      dispatch(createPost({ ...postData, name: user?.result?.name || decode(user.token).name }, history));
     } else {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name || decode(user.token).name }));
     }

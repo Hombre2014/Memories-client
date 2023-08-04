@@ -8,9 +8,11 @@ export default makeStyles((theme) => ({
     padding: '16px',
   },
   pagination: {
-    borderRadius: 4,
-    marginTop: '1rem',
-    padding: '16px',
+    borderRadius: 8,
+    marginTop: '2rem',
+    marginBottom: '2rem',
+    padding: '12px',
+    margin: 'auto',
   },
   gridContainer: {
     [theme.breakpoints.down('xs')]: {
