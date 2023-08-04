@@ -44,7 +44,6 @@ export const createPost = (post, history) => async (dispatch) => {
 
     history.push(`/posts/${data._id}`);
 
-    console.log(data);
     dispatch({ type: CREATE, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {

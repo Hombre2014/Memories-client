@@ -80,7 +80,9 @@ const PostDetails = () => {
           />
         </div>
       </div>
-      {recommendedPosts.length && (
+      {recommendedPosts.length === 0 ? (
+        <></>
+      ) : (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">
             You might also like:
@@ -90,17 +92,33 @@ const PostDetails = () => {
             {recommendedPosts.map(
               ({ title, message, name, likes, selectedFile, _id }) => (
                 <div
-                  style={{ margin: '20px', cursor: 'pointer' }}
+                  style={{
+                    margin: '20px',
+                    cursor: 'pointer',
+                    width: '280px',
+                    minHeight: '400px',
+                    border: '1px solid #ccc',
+                    borderRadius: '15px',
+                    padding: '20px',
+                  }}
                   onClick={() => openPost(_id)}
                   key={_id}
                 >
-                  <Typography gutterBottom variant="h6">
+                  <Typography
+                    gutterBottom
+                    variant="h6"
+                    style={{ minHeight: '70px' }}
+                  >
                     {title}
                   </Typography>
                   <Typography gutterBottom variant="subtitle2">
                     {name}
                   </Typography>
-                  <Typography gutterBottom variant="subtitle2">
+                  <Typography
+                    gutterBottom
+                    variant="subtitle2"
+                    style={{ minHeight: '82px' }}
+                  >
                     {message}
                   </Typography>
                   <Typography gutterBottom variant="subtitle1">
