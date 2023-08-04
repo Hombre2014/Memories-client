@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -6,8 +6,8 @@ import ChipInput from 'material-ui-chip-input';
 
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
-import { getPosts, getPostsBySearch } from '../../actions/posts';
-import Paginate from '../Pagination';
+import { getPostsBySearch } from '../../actions/posts';
+import Pagination from '../Pagination';
 
 import useStyles from './styles';
 
@@ -26,13 +26,10 @@ const Home = () => {
   const [search, setSearch] = useState('');
   const [tags, setTags] = useState([]);
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [currentId, dispatch]);
-
   const searchPost = () => {
     if (search.trim() || tags) {
       dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
+      history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
     } else {
       history.push('/');
     }
@@ -51,7 +48,7 @@ const Home = () => {
   return (
     <Grow in>
       <Container maxWidth="xl">
-        <Grid className={classes.mainContainer} container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
+        <Grid container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
           <Grid item xs={12} sm={6} md={9}>
             <Posts setCurrentId={setCurrentId} />
           </Grid>
@@ -62,9 +59,11 @@ const Home = () => {
               <Button onClick={searchPost} className={classes.searchButton} variant='contained' color="primary">Search</Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
-            <Paper className={classes.pagination} elevation={6}>
-              <Paginate />
-            </Paper>
+            {!searchQuery && !tags.length && (
+              <Paper className={classes.pagination} elevation={6}>
+                <Pagination page={page} />
+              </Paper>
+            )}
           </Grid>
         </Grid>
       </Container>

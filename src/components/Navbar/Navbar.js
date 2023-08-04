@@ -4,7 +4,8 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { AppBar, Avatar, Toolbar, Typography, Button } from '@material-ui/core';
 import decode from 'jwt-decode';
 import useStyles from './styles';
-import memories from '../../images/memories.png';
+import memoriesLogo from '../../images/memoriesLogo.png';
+import memoriesText from '../../images/memoriesText.png';
 
 let userResult = null;
 
@@ -38,14 +39,14 @@ const Navbar = () => {
     }
 
     setUser(JSON.parse(localStorage.getItem('profile')));
-  }, [location]);
+  }, [location, user?.token]);
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
-      <div className='classes.brandContainer'>
-        <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">Memories</Typography>
-        <img className={classes.image} src={memories} alt="memories" height="60" />
-      </div>
+      <Link to="/" className='classes.brandContainer'>
+        <img className={classes.image} src={memoriesText} alt="icon" height="45" />
+        <img className={classes.image} src={memoriesLogo} alt="memories" height="40" />
+      </Link>
       <Toolbar className={classes.toolbar} />
       {user ? (
         <div className={classes.profile}>
@@ -55,8 +56,9 @@ const Navbar = () => {
         </div>
       ) : (
         <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
-      )}
-    </AppBar>
+      )
+      }
+    </AppBar >
   );
 };
 
