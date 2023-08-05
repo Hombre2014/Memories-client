@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useHistory } from 'react-router-dom';
 
+import CommentSection from './CommentSection';
 import { getPost, getPostsBySearch } from '../../actions/posts';
-
 import useStyles from './styles';
 
 const PostDetails = () => {
@@ -68,6 +68,9 @@ const PostDetails = () => {
           <Typography variant="body1">
             {moment(post.createdAt).fromNow()}
           </Typography>
+          <Divider style={{ margin: '20px 0' }} />
+          <CommentSection post={post} />
+          <Divider style={{ margin: '20px 0' }} />
         </div>
         <div className={classes.imageSection}>
           <img
@@ -124,7 +127,7 @@ const PostDetails = () => {
                   <Typography gutterBottom variant="subtitle1">
                     Likes: {likes.length}
                   </Typography>
-                  <img src={selectedFile} width="200px" />
+                  <img src={selectedFile} width="200px" alt="Selected file" />
                 </div>
               )
             )}
