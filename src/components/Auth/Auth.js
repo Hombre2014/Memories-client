@@ -3,6 +3,7 @@ import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui
 import { GoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Input from './Input';
 import useStyles from './style';
@@ -40,10 +41,11 @@ const Auth = () => {
   };
 
   const googleSuccess = async (res) => {
-    const result = res?.clientId;
     const token = res?.credential;
 
     try {
+      const result = jwt_decode(token);
+
       dispatch({ type: 'AUTH', data: { result, token } });
 
       history.push('/');
