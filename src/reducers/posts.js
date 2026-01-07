@@ -7,6 +7,8 @@ export default (state = { isLoading: true, posts: [] }, action) => {
     case END_LOADING:
       return { ...state, isLoading: false };
     case FETCH_ALL:
+      console.log('Reducer FETCH_ALL - payload:', action.payload);
+      console.log('Reducer FETCH_ALL - payload.data:', action.payload.data);
       return {
         ...state,
         posts: action.payload.data,
