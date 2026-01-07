@@ -12,11 +12,7 @@ const Paginate = ({ page, pages, handlePageChange }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('Pagination useEffect - page:', page);
-    if (page) {
-      console.log('Dispatching getPosts for page:', page);
-      dispatch(getPosts(page));
-    }
+    if (page) dispatch(getPosts(page));
   }, [page, dispatch]);
 
   return (

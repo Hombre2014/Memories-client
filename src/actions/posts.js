@@ -17,15 +17,11 @@ export const getPosts = (page) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
     const { data } = await api.fetchPosts(page);
-    
-    console.log('API Response:', data); // Debug log
 
     dispatch({ type: FETCH_ALL, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
-    console.log('Error fetching posts:', error);
-    console.log('Error response:', error.response);
-    dispatch({ type: END_LOADING });
+    console.log(error);
   }
 };
 

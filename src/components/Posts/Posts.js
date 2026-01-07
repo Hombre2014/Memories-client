@@ -8,10 +8,6 @@ const Posts = ({ setCurrentId }) => {
   const { posts, isLoading } = useSelector((state) => state.posts);
   const classes = useStyles();
 
-  console.log('Posts component - posts:', posts);
-  console.log('Posts component - isLoading:', isLoading);
-  console.log('Posts component - posts.length:', posts?.length);
-
   if (!posts.length && !isLoading) return 'No posts';
 
   return (
